@@ -10,7 +10,7 @@ Zhong hospital equipment maintenance report system
 * Sqlite DBMS
 * WebSocket realization
 * support LAN or WAN,if use WAN must use DDNS
-# future features
+# future features 
 * solu BUG
 * Improve Notification
 * Add Website control page
