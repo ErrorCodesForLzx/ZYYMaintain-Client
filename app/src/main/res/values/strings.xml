@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">报检系统</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test_long_text">sss </string>
+    <string name="text_long_str">WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER WORKORDER</string>
+</resources>

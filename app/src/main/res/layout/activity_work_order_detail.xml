@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WorkOrderDetailActivity"
+    android:padding="25dp">
+
+<!--
+        UI Designer ： LeiZhiXiang 雷智翔
+        CopyRight   ： ZZYMAINTAIN © 2022 AllrightsReserved.
+        Rel         ： Telegram - LZX665
+                    ： QQ       - 514389135
+                    ： Twitter  - (NOT GIVE YOU)
+                    ： WeChat   - lzx6weixing
+-->
+
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="?attr/homeAsUpIndicator" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:text="返回到主界面" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_red_bk_radius"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_icon_detail" />
+
+        <TextView
+            android:id="@+id/tv_work_order_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{TITLE}"
+            android:textSize="20sp"
+            android:textColor="#3E0003"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_work_order_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_work_order_title">
+
+            <TextView
+                android:id="@+id/tv_work_order_create_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3E0003"
+                android:text="创建用户：{AVATER_NAME}" />
+
+            <TextView
+                android:id="@+id/tv_work_order_create_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3E0003"
+                android:text="创建时间：{TIME}" />
+            <TextView
+                android:id="@+id/tv_work_order_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3E0003"
+                android:text="完成时间：未完成" />
+            <TextView
+                android:id="@+id/tv_work_order_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3E0003"
+                android:text="工单状态：未处理" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/sp_blue_bk_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="工单正文"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/text_long_str"
+                android:textColor="#474747"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="工单图片"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/iv_order_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_icon_no_pic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="状态审批"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/sp_status_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_examine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="审批" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
