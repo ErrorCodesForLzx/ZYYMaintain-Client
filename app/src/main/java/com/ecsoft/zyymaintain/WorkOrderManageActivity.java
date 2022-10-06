@@ -70,6 +70,7 @@ public class WorkOrderManageActivity extends AppCompatActivity {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
+
                 return tabItem[position % tabItem.length];
             }
 
