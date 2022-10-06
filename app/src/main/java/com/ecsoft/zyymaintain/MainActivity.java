@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         initViewComponentData();
         initViewComponentEvent();
         isAutoLogin(); // 判断是否自动登录
-        initService(); // 加载服务
+        // initService(); // 加载服务
         loadBK(); // 加载登录背景
         initGlobalConfiguration(); // 加载全局配置
         if (getSupportActionBar() != null){

@@ -27,7 +27,7 @@ public class StartNotificationReceiver extends BroadcastReceiver {
             bundle.putString("userToken",dbSettingsService.getSettings("loginToken"));
             bundle.putString("userId",dbSettingsService.getSettings("uid"));
             intent.putExtra("data",bundle);
-            context.startService(intentService);
+            context.startForegroundService(intentService);
         }
     }
 }

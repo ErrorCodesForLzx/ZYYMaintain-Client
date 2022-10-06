@@ -54,7 +54,24 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.NotificationService"/>
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+        <receiver
+            android:name=".service.StartNotificationReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -66,14 +83,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!-- 自启动添加接收器 -->
-        <receiver android:name=".service.StartNotificationReceiver"
-                  android:exported="true">
-            <intent-filter android:priority="100">
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.HOME"/>
-            </intent-filter>
-        </receiver>
+
         
     </application>
 

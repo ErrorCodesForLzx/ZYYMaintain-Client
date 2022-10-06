@@ -42,16 +42,16 @@ public class WorkOrderManageActivity extends AppCompatActivity {
         initViewComponent();
         initViewComponentEvent();
         // initViewData();
-        if (!isServiceRunning(WorkOrderManageActivity.this,"com.ecsoft.zyymaintain.service.NotificationService")){
-            Intent intent = new Intent(WorkOrderManageActivity.this, NotificationService.class);
-            Bundle bundle = new Bundle();
-            DbSettingsService dbSettingsService = new DbSettingsService(WorkOrderManageActivity.this);
-            bundle.putString("userName",dbSettingsService.getSettings("tokenUser"));
-            bundle.putString("userToken",dbSettingsService.getSettings("loginToken"));
-            bundle.putString("userId",dbSettingsService.getSettings("uid"));
-            intent.putExtra("data",bundle);
-            startService(intent);
-        }
+//        if (!isServiceRunning(WorkOrderManageActivity.this,"com.ecsoft.zyymaintain.service.NotificationService")){
+////            Intent intent = new Intent(WorkOrderManageActivity.this, NotificationService.class);
+////            Bundle bundle = new Bundle();
+////            DbSettingsService dbSettingsService = new DbSettingsService(WorkOrderManageActivity.this);
+////            bundle.putString("userName",dbSettingsService.getSettings("tokenUser"));
+////            bundle.putString("userToken",dbSettingsService.getSettings("loginToken"));
+////            bundle.putString("userId",dbSettingsService.getSettings("uid"));
+////            intent.putExtra("data",bundle);
+////            startService(intent);
+//        }
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }

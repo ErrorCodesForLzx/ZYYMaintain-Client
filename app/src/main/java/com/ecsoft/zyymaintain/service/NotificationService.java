@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.ecsoft.zyymaintain.R;
 import com.ecsoft.zyymaintain.WorkOrderDetailActivity;
 import com.ecsoft.zyymaintain.config.GlobalConfiguration;
+import com.ecsoft.zyymaintain.database.DbSettingsService;
 import com.ecsoft.zyymaintain.ui.list.adapter.entity.WorkOrderPO;
 
 import org.json.JSONException;
@@ -59,48 +61,52 @@ public class NotificationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         createChannel(); // 创建信道
         Log.e("EEEEE","服务启动！！！！！");
-        Bundle data = intent.getBundleExtra("data");
-        String userId  = data.getString("userId");
-        String userToken = data.getString("userToken");
-        wsUrl = GlobalConfiguration.webSocket+"/websocket/broadcast/"+userId+"/"+userToken;
-        wsClient = new OkHttpClient.Builder()
-                .pingInterval(3, TimeUnit.MINUTES)
-                .build();
-        Request request = new Request.Builder()
-                .url(wsUrl)
-                .build();
-        webSocket = wsClient.newWebSocket(request, new WebSocketListener() {
-            @Override
-            public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-                super.onClosed(webSocket, code, reason);
-            }
+        DbSettingsService dbSettingsService = new DbSettingsService(getApplicationContext());
+        String userId  = dbSettingsService.getSettings("uid");
+        String userToken = dbSettingsService.getSettings("loginToken");
+        if (dbSettingsService.getSettings("keepLogin").equals("true")){
+            wsUrl = GlobalConfiguration.webSocket+"/websocket/broadcast/"+userId+"/"+userToken;
+            wsClient = new OkHttpClient.Builder()
+                    .pingInterval(3, TimeUnit.MINUTES)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(wsUrl)
+                    .build();
+            webSocket = wsClient.newWebSocket(request, new WebSocketListener() {
+                @Override
+                public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+                    super.onClosed(webSocket, code, reason);
+                }
 
-            @Override
-            public void onClosing(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-                super.onClosing(webSocket, code, reason);
-            }
+                @Override
+                public void onClosing(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+                    super.onClosing(webSocket, code, reason);
+                }
 
-            @Override
-            public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
-                super.onFailure(webSocket, t, response);
-            }
+                @Override
+                public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
+                    super.onFailure(webSocket, t, response);
+                }
 
-            @Override
-            public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-                super.onMessage(webSocket, text);
-                sendNotification("中医院报检系统",text); // 发送通知
-            }
+                @Override
+                public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
+                    super.onMessage(webSocket, text);
+                    sendNotification("中医院报检系统",text); // 发送通知
+                }
 
-            @Override
-            public void onMessage(@NonNull WebSocket webSocket, @NonNull ByteString bytes) {
-                super.onMessage(webSocket, bytes);
-            }
+                @Override
+                public void onMessage(@NonNull WebSocket webSocket, @NonNull ByteString bytes) {
+                    super.onMessage(webSocket, bytes);
+                }
 
-            @Override
-            public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
-                super.onOpen(webSocket, response);
-            }
-        });
+                @Override
+                public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
+                    super.onOpen(webSocket, response);
+                }
+            });
+
+        } else {
+        }
 
 
         return super.onStartCommand(intent, flags, startId);
@@ -171,7 +177,7 @@ public class NotificationService extends Service {
                             .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE) // 设置通知默认铃声和可见度
                             .setContentIntent(pendingIntent) // 设置点击跳转的Intent
                             .setSmallIcon(R.mipmap.ic_launcher) // 设置小图标
-                            .setAutoCancel(false) // 设置是否自动关闭
+                            .setAutoCancel(true) // 设置是否自动关闭
                             .build();
                     notification.defaults = Notification.DEFAULT_ALL;
                     notificationManager.notify(123,notification); // 发送通知
