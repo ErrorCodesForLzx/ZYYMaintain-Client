@@ -1,5 +1,6 @@
 package com.ecsoft.zyymaintain.service;
 
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ public class StartNotificationReceiver extends BroadcastReceiver {
             bundle.putString("userId",dbSettingsService.getSettings("uid"));
             intent.putExtra("data",bundle);
             context.startForegroundService(intentService);
+
         }
     }
 }

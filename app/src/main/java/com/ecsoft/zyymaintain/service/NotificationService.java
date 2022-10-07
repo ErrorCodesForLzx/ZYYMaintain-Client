@@ -44,6 +44,8 @@ public class NotificationService extends Service {
     // 创建客户端和ws实例
     private OkHttpClient wsClient;
     private WebSocket    webSocket;
+
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,6 +62,13 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createChannel(); // 创建信道
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("code",1002);
+            jsonObject.put("msg","报检系统后台运行中");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.e("EEEEE","服务启动！！！！！");
         DbSettingsService dbSettingsService = new DbSettingsService(getApplicationContext());
         String userId  = dbSettingsService.getSettings("uid");
@@ -108,6 +117,7 @@ public class NotificationService extends Service {
         } else {
         }
 
+        sendNotification("报检系统", jsonObject.toString()); // 发送通知
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -180,6 +190,21 @@ public class NotificationService extends Service {
                             .setAutoCancel(true) // 设置是否自动关闭
                             .build();
                     notification.defaults = Notification.DEFAULT_ALL;
+                    notificationManager.notify(123,notification); // 发送通知
+                    break;
+                }
+                case 1002:{
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    Notification notification = new NotificationCompat.Builder(context,channelId)
+                            .setContentTitle(title) // 设置标题
+                            .setContentText(jsonObject.getString("msg")) // 设置内容
+                            .setWhen(System.currentTimeMillis()) // 设置通知时间
+                            .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE) // 设置通知默认铃声和可见度
+                            .setSmallIcon(R.mipmap.ic_launcher) // 设置小图标
+                            .setAutoCancel(true) // 设置是否自动关闭
+                            .build();
+                    notification.defaults = Notification.DEFAULT_ALL;
+                    startForeground(1,notification); // 开启背景服务
                     notificationManager.notify(123,notification); // 发送通知
                 }
             }
